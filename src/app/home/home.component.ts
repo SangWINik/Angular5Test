@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { DataService } from '../data.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-home',
@@ -34,7 +35,8 @@ export class HomeComponent implements OnInit {
   goalText = 'My first life goal';
   goals = [];
 
-  constructor(private _data: DataService) { }
+  constructor(private _data: DataService) {
+  }
 
   ngOnInit() {
     this.itemCount = this.goals.length;

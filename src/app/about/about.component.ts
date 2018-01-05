@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { DataService } from '../data.service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 
 @Component({
@@ -30,9 +30,12 @@ export class AboutComponent implements OnInit {
   }
 
   getDemoText() {
-    this.http.get('http://localhost:8080/TestController', {responseType: 'text'}).subscribe(
-      data => { alert(data); this.text = data; },
-      err => console.error(err),
+    this.http.get('/TestController', {responseType: 'text'}).subscribe(
+      data => { this.text = data; },
+      (err: HttpErrorResponse) => {
+        console.error(err);
+        this.router.navigate(['login']);
+        },
       () => console.log('done')
       );
   }
